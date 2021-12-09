@@ -1,6 +1,6 @@
 {
-  "name": "vitesse-webext",
-  "displayName": "Vitesse WebExt",
+  "name": "eth-wallet-webext",
+  "displayName": "Eth Wallet WebExt",
   "version": "0.0.1",
   "description": "[description]",
   "private": true,
@@ -53,5 +53,8 @@
     "web-ext": "^6.4.0",
     "webext-bridge": "^5.0.0",
     "webextension-polyfill": "^0.8.0"
+  },
+  "dependencies": {
+    "@varlet/ui": "^1.23.10"
   }
 }

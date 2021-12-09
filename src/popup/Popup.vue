@@ -1,23 +1,21 @@
 <template>
-  <main class="w-[300px] px-4 py-5 text-center text-gray-700">
-    <Logo />
-    <div>Popup</div>
-    <p class="mt-2 opacity-50">
-      This is the popup page
-    </p>
-    <button class="btn mt-2" @click="openOptionsPage">
-      Open Options
-    </button>
+  <main class="w-[400px] h-[600px] text-center">
+    <AppBar />
+    <Unlock />
+    <!-- <NewAccount /> -->
+    <!-- <div>Eth Wallet</div>
+    <p class="mt-2 opacity-50">This is the popup page</p>
+    <button class="btn mt-2" @click="openOptionsPage">Open Options</button>
     <div class="mt-2">
       <span class="opacity-50">Storage:</span> {{ storageDemo }}
-    </div>
+    </div> -->
   </main>
 </template>
 
 <script setup lang="ts">
-import { storageDemo } from '~/logic/storage'
+import { storageDemo } from "~/logic/storage";
 
 function openOptionsPage() {
-  browser.runtime.openOptionsPage()
+  browser.runtime.openOptionsPage();
 }
 </script>

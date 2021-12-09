@@ -1,5 +1,7 @@
 {
-  "cSpell.words": ["Vitesse"],
+  "cSpell.words": [
+    "Vitesse"
+  ],
   "typescript.tsdk": "node_modules/typescript/lib",
   "volar.tsPlugin": true,
   "volar.tsPluginStatus": false,
@@ -10,4 +12,8 @@
   "files.associations": {
     "*.css": "postcss",
   },
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "editor.formatOnType": true,
+  "editor.formatOnSave": true
 }
