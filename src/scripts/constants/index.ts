@@ -1,4 +1,4 @@
-import { Network } from '~/types/Network'
+import { Network } from '~/scripts/types/Network'
 
 const Ethereum: Network = {
   name: '以太坊 Ethereum 主网络',
@@ -62,7 +62,6 @@ const ShangChain: Network = {
   symbol: 'BNB',
   explorer: 'http://nps.shang-chain.com:18028'
 }
-
 
 export const DEFAULT_NETWORKS = [
   Ethereum,
