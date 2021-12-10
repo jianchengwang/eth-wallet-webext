@@ -13,32 +13,64 @@
     <var-row>
       <var-col :span="24">
         <var-form ref="form" style="margin: 20px">
-          <var-input type="password" placeholder="设置密码*" :rules="[(v) => !!v || '密码不能为空']" v-model="formData.password" />
-          <var-input type="password" placeholder="请确认输入密码*" :rules="[
+          <var-input
+            type="password"
+            placeholder="设置密码*"
+            :rules="[(v) => !!v || '密码不能为空']"
+            v-model="formData.password"
+          />
+          <var-input
+            type="password"
+            placeholder="请确认输入密码*"
+            :rules="[
               (v) => (!!v && v === formData.password) || '两次密码不一致',
-            ]" v-model="formData.confirmPassword" style="margin-top: 20px" />
+            ]"
+            v-model="formData.confirmPassword"
+            style="margin-top: 20px"
+          />
 
-          <var-button block type="warning" :disabled="(!!formData.password && formData.password === formData.confirmPassword)?false:true" size="large" style="
-            font-size: 18px;
-            margin-top: 48px;
-            padding-top: 16px;
-            padding-bottom: 16px;
-            " @click="createAccount">创建</var-button>
+          <var-button
+            block
+            type="warning"
+            :disabled="
+              !!formData.password &&
+              formData.password === formData.confirmPassword
+                ? false
+                : true
+            "
+            size="large"
+            style="
+              font-size: 18px;
+              margin-top: 48px;
+              padding-top: 16px;
+              padding-bottom: 16px;
+            "
+            @click="createAccount"
+            >创建</var-button
+          >
         </var-form>
       </var-col>
     </var-row>
     <var-row>
       <var-col :span="24">
-        <var-button style="
+        <var-button
+          style="
             font-size: 18px;
             margin-top: 18px;
             padding-top: 16px;
             padding-bottom: 16px;
-          ">导入账户</var-button>
+          "
+          >导入账户</var-button
+        >
       </var-col>
     </var-row>
 
-    <var-dialog v-model:show="showMnemonic" :cancel-button="false" confirm-button-text="复制助记词" @confirm="copyMnemonic">
+    <var-dialog
+      v-model:show="showMnemonic"
+      :cancel-button="false"
+      confirm-button-text="复制助记词"
+      @confirm="copyMnemonic"
+    >
       <template #title>
         <var-icon name="information" color="#2979ff" />
         助记词

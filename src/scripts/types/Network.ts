@@ -1,4 +1,5 @@
 export interface Network {
+  network?: string;
   name: string;
   chainId: number;
   rpc: string;

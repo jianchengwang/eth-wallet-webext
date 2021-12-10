@@ -1,6 +1,7 @@
 import { Network } from '~/scripts/types/Network'
 
 const Ethereum: Network = {
+  network: 'mainnet',
   name: '以太坊 Ethereum 主网络',
   chainId: 1,
   rpc: 'https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
@@ -10,6 +11,7 @@ const Ethereum: Network = {
 };
 
 const Ropsten: Network = {
+  network: 'ropsten',
   name: 'Ropsten 测试网络',
   chainId: 3,
   rpc: 'https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
@@ -19,6 +21,7 @@ const Ropsten: Network = {
 };
 
 const Rinkeby: Network = {
+  network: 'rinkeby',
   name: 'Rinkeby 测试网络',
   chainId: 4,
   rpc: 'https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
@@ -28,6 +31,7 @@ const Rinkeby: Network = {
 };
 
 const Goerli: Network = {
+  network: 'goerli',
   name: 'Goerli 测试网络',
   chainId: 5,
   rpc: 'https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
@@ -37,6 +41,7 @@ const Goerli: Network = {
 }
 
 const Kovan: Network = {
+  network: 'kovan',
   name: 'Kovan 测试网络',
   chainId: 42,
   rpc: 'https://kovan.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
@@ -46,6 +51,7 @@ const Kovan: Network = {
 }
 
 const BscTestnet: Network = {
+  network: '',
   name: 'Bsc 测试网络',
   chainId: 97,
   rpc: 'https://speedy-nodes-nyc.moralis.io/03a2a57cae4f839aae2eb484/bsc/testnet',
@@ -55,6 +61,7 @@ const BscTestnet: Network = {
 }
 
 const ShangChain: Network = {
+  network: '',
   name: '熵链测试网络',
   chainId: 1024,
   rpc: 'http://nps.shang-chain.com:18027',
