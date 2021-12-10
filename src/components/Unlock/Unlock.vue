@@ -75,7 +75,6 @@ export default {
   width: 100%;
   flex-direction: column;
   text-align: center;
-  background-color: #fff;
   border-radius: 20px;
   margin: auto;
   position: absolute;
