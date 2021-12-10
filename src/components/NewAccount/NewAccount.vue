@@ -109,13 +109,21 @@ export default {
 
 <style scoped>
 .container {
-  margin: 20px;
   display: flex;
   justify-content: center;
   flex: 1 0 auto;
   min-height: 0;
   width: 100%;
   flex-direction: column;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 20px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .title {
