@@ -1,9 +1,9 @@
 <template>
   <main class="w-[400px] h-[600px] text-center">
-    <AppBar />
-    <NewAccount v-if="accounts.length == 0" />
-    <Unlock v-else-if="!unlocked" />
-    <div v-else>
+    <!-- <AppBar />
+    <NewAccount v-if="accounts" />
+    <Unlock v-if="!unlocked" /> -->
+    <div>
       <AppBody />
       <div>Eth Wallet</div>
       <p class="mt-2 opacity-50">This is the popup page</p>

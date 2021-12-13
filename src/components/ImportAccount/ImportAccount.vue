@@ -7,17 +7,54 @@
     </var-row>
     <var-row>
       <var-col :span="24">
-        <p class="title">创建一个新账号</p>
+        <p class="title">导入账号</p>
       </var-col>
     </var-row>
     <var-row>
       <var-col :span="24">
         <var-form ref="form" style="margin: 20px">
+          <var-select :hint="false" :line="false" placeholder="请选择一个选项" v-model="importType">
+            <var-option label="助记词" :value="1" />
+            <var-option label="私钥" :value="2" />
+            <var-option label="json文件" :value="3" />
+          </var-select>
+          <var-input
+            v-if="importType == 1"
+            type="input"
+            placeholder="输入助记词*"
+            :rules="[(v) => !!v || '助记词不能为空']"
+            v-model="formData.monic"
+            style="margin-top: 20px"
+          />
+          <var-input
+            v-if="importType == 2"
+            type="input"
+            placeholder="输入钱包私钥*"
+            :rules="[(v) => !!v || '钱包私钥不能为空']"
+            v-model="formData.privateKey"
+            style="margin-top: 20px"
+          />
+          <var-input
+            v-if="importType == 3"
+            type="password"
+            placeholder="json文件密码*"
+            :rules="[(v) => !!v || 'json文件密码不能为空']"
+            v-model="formData.keystorePassword"
+            style="margin-top: 20px"
+          />
+          <var-uploader
+            v-if="importType == 3"
+            v-model="jsonFile"
+            @after-read="handleAfterRead"
+            :maxlength="1"
+            style="margin-top: 20px"
+          />
           <var-input
             type="password"
             placeholder="设置密码*"
             :rules="[(v) => !!v || '密码不能为空']"
             v-model="formData.password"
+            style="margin-top: 20px"
           />
           <var-input
             type="password"
@@ -45,11 +82,12 @@
               padding-top: 16px;
               padding-bottom: 16px;
             "
-            @click="createAccount"
-          >创建</var-button>
+            @click="importAccount"
+          >导入</var-button>
         </var-form>
       </var-col>
     </var-row>
+
     <var-row>
       <var-col :span="24">
         <var-button
@@ -59,24 +97,10 @@
             padding-top: 16px;
             padding-bottom: 16px;
           "
-        >导入账户</var-button>
+          @click="exportKeystoreJson1"
+        >导出json文件</var-button>
       </var-col>
     </var-row>
-
-    <var-dialog
-      v-model:show="showMnemonic"
-      :cancel-button="false"
-      confirm-button-text="复制助记词"
-      @confirm="copyMnemonic"
-    >
-      <template #title>
-        <var-icon name="information" color="#2979ff" />助记词
-      </template>
-
-      <var-card title :description="mnemonic" />
-    </var-dialog>
-
-    <p style="margin-top: 10px;"><pre>{{ account }}</pre></p>
   </div>
 </template>
 
@@ -84,17 +108,29 @@
 import { ref, reactive } from "vue";
 import { useClipboard } from "@vueuse/core";
 import { Account } from "~/scripts/types/Account";
-import { createWallet } from "~/scripts/lib/wallet";
+import { importMonic, importPrivateKey, importKeystoreJson, exportKeystoreJson } from "~/scripts/lib/wallet";
 import { aesEncrypt } from "~/scripts/lib/crypto";
 import { accounts, currentAccount, unlocked } from "~/logic/storage";
 const formData = reactive({
+  monic: "",
+  privateKey: "",
+  keystoreJson: "",
+  keystorePassword: "",
   password: "",
   confirmPassword: "",
 });
-let showMnemonic = ref(false);
-let mnemonic = ref("");
+let importType = ref(1);
+const jsonFile = ref([])
+const handleAfterRead = event => {
+  console.info(event)
+  const reader = new FileReader()
+  reader.readAsText(event.file, "UTF-8");
+  reader.onload = function (ev) {
+    formData.keystoreJson = ev.target.result;
+  };
+}
 let account = reactive<Account>({
-  name: "Account1",
+  name: "",
   address: "",
   publicKey: "",
   mnemonic: "",
@@ -102,32 +138,36 @@ let account = reactive<Account>({
   privateKey: "",
   privateKeyCiphertext: "",
 });
-const createAccount = () => {
-  const wallet = createWallet();
-  mnemonic.value = wallet.mnemonic?wallet.mnemonic.phrase:"";
-  const mnemonicCiphertext = aesEncrypt(mnemonic.value, formData.password);
+const importAccount = () => {
+  let wallet
+  if (importType.value == 1) {
+    wallet = importMonic(formData.monic)
+  } else if (importType.value == 2) {
+    wallet = importPrivateKey(formData.privateKey)
+  } else {
+    wallet = importKeystoreJson(formData.keystoreJson, formData.keystorePassword)
+  }
+  let mnemonic = wallet.mnemonic ? wallet.mnemonic.phrase : ""
+  const mnemonicCiphertext = aesEncrypt(mnemonic, formData.password);
   const privateKeyCiphertext = aesEncrypt(
     wallet.privateKey,
     formData.password
   );
   account = Object.assign(account, {
-    name: "Account1",
+    name: "Account" + accounts.value.length,
     address: wallet.address,
     publicKey: wallet.publicKey,
-    mnemonic: mnemonic.value,
+    mnemonic: mnemonic,
     mnemonicCiphertext: mnemonicCiphertext,
     privateKey: wallet.privateKey,
     privateKeyCiphertext: privateKeyCiphertext,
   });
-  showMnemonic.value = true;
-};
-const copyMnemonic = () => {
-  useClipboard({ source: mnemonic });
-  showMnemonic.value = false;
   accounts.value.push(account);
-  currentAccount.value = account;
-  unlocked.value = true;
 };
+
+const exportKeystoreJson1 = () => {
+  exportKeystoreJson(formData.privateKey, formData.password).then(result => { alert(result); })
+}
 </script>
 
 <style scoped>

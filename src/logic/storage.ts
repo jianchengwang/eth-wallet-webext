@@ -11,3 +11,5 @@ export const accounts = useLocalStorage('accounts', emptyAccount, { listenToStor
 export const currentAccount = useLocalStorage('currentAccount', {}, { listenToStorageChanges: true })
 export const tokens = useLocalStorage('tokens', [], { listenToStorageChanges: true })
 export const unlocked = useLocalStorage('unlocked', false, { listenToStorageChanges: true })
+export const showMenuDrop = useLocalStorage('showMenuDrop', false, { listenToStorageChanges: true })
+export const networkDropdown = useLocalStorage('networkDropdown', false, { listenToStorageChanges: true })

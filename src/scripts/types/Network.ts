@@ -1,4 +1,5 @@
 export interface Network {
+  id: number;
   network?: string;
   name: string;
   chainId: number;
@@ -6,4 +7,5 @@ export interface Network {
   test?: boolean;
   symbol?: string;
   explorer?: string;
+  default?: boolean;
 }

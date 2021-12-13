@@ -2,7 +2,7 @@
   <div class="container">
     <var-row>
       <var-col :span="24">
-        <var-icon name="/assets/metamask-fox.svg" :size="64" />
+        <var-icon name="/assets/images/logo/metamask-fox.svg" :size="64" />
       </var-col>
     </var-row>
     <var-row>
@@ -14,14 +14,25 @@
     <var-row>
       <var-col :span="24">
         <var-form ref="form" style="margin: 50px;">
-          <var-input type="password" placeholder="密码" :rules="[(v) => !!v || '密码不能为空']" v-model="formData.password" />
+          <var-input
+            type="password"
+            placeholder="密码"
+            :rules="[(v) => !!v || '密码不能为空']"
+            v-model="formData.password"
+          />
 
-          <var-button block type="success" size="large" style="
+          <var-button
+            block
+            type="success"
+            size="large"
+            style="
               font-size: 18px;
               margin-top: 48px;
               padding-top: 16px;
               padding-bottom: 16px;
-            " @click="unlock">解锁</var-button>
+            "
+            @click="unlock"
+          >解锁</var-button>
         </var-form>
       </var-col>
     </var-row>
@@ -34,35 +45,27 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { importPrivateKey } from "~/scripts/lib/wallet";
 import { aesDecrypt } from "~/scripts/lib/crypto";
 import { accounts, unlocked } from "~/logic/storage";
-export default {
-  setup() {
-    const formData = reactive({
-      password: "",
-    });
 
-    const unlock = () => {
-      const account1 = accounts.value[0];
-      const privateKey = aesDecrypt(
-        account1.privateKeyCiphertext,
-        formData.password
-      );
-      alert(privateKey);
-      const wallet = importPrivateKey(privateKey);
-      alert(wallet.address);
-      if (wallet && wallet.address === account1.address) {
-        unlocked.value = true;
-      }
-    };
+const formData = reactive({
+  password: "",
+});
 
-    return {
-      formData,
-      unlock,
-    };
-  },
+const unlock = () => {
+  const account1 = accounts.value[0];
+  const privateKey = aesDecrypt(
+    account1.privateKeyCiphertext,
+    formData.password
+  );
+  alert(privateKey);
+  const wallet = importPrivateKey(privateKey);
+  alert(wallet.address);
+  if (wallet && wallet.address === account1.address) {
+    unlocked.value = true;
+  }
 };
 </script>
 
@@ -77,7 +80,6 @@ export default {
   text-align: center;
   border-radius: 20px;
   margin: auto;
-  position: absolute;
   top: 0;
   left: 0;
   right: 0;

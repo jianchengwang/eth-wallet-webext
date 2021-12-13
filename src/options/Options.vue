@@ -1,26 +1,26 @@
 <template>
-  <main class="px-4 py-10 text-center text-gray-700 dark:text-gray-200">
-    <pixelarticons-sliders class="icon-btn mx-2 text-2xl" />
-    <div>Options</div>
-    <p class="mt-2 opacity-50">This is the options page</p>
+  <main>
+    <var-tabs v-model:active="active">
+      <var-tab>创建账户</var-tab>
+      <var-tab>导入账户</var-tab>
+      <var-tab>解锁页面</var-tab>
+      <var-tab>切换网络</var-tab>
+    </var-tabs>
 
-    <input
-      v-model="storageDemo"
-      class="border border-gray-400 rounded px-2 py-1 mt-2"
-    /><button @click="test">test</button>
-
-    <div class="mt-4">
-      Powered by Vite <pixelarticons-zap class="align-middle" />
+    <!-- <NewAccount v-if="active == 0" /> -->
+    <div style="margin: 40px;">
+      <NewAccount v-if="active == 0" />
+      <ImportAccount v-if="active == 1" />
+      <Unlock v-if="active == 2" />
+      <NetworkProviderChange v-if="active == 3" />
     </div>
   </main>
 </template>
 
 <script setup lang="ts">
-import { storageDemo } from "~/logic/storage";
-import { currentAccount } from "~/logic/storage";
+import { ref } from "vue"
 
-import { useGlobalState } from "~/logic/state";
-
+let active = ref(0)
 function test() {
   const globalState = useGlobalState();
   console.info(globalState.provider);
@@ -32,3 +32,9 @@ function test() {
     });
 }
 </script>
+
+<style scoped>
+var-tab-item {
+  height: 100%;
+}
+</style>
