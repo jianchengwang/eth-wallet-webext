@@ -11,6 +11,7 @@ import Unlock from "~/components/Unlock/Unlock.vue"
 
 import Settings from "~/options/views/settings/Settings.vue"
 import SettingsNetworks from "~/options/views/settings/Networks.vue"
+import SettingsNetworksUpdate from "~/options/views/settings/NetworksUpdate.vue"
 import SettingsNetworksAdd from "~/options/views/settings/NetworksAdd.vue"
 
 import { unlocked, accounts } from "~/logic"
@@ -28,9 +29,17 @@ const routes = [
   {
     path: '/settings', component: Settings, children: [
       {
+        path: "",
+        redirect: '/settings/networks'
+      },
+      {
         path: 'networks',
         component: SettingsNetworks,
         children: [
+          {
+            path: "",
+            component: SettingsNetworksUpdate,
+          },
           {
             path: "add-network",
             component: SettingsNetworksAdd,
