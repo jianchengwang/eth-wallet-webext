@@ -12,6 +12,5 @@ export interface Account {
 
   balance?: number;
   nonce?: number;
-  tokens?: Array<Token>;
-  currentTokenAddress?: string;
+  tokenMap?: Map<Number, Array<Token>>;
 }

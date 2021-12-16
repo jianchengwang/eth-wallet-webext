@@ -10,9 +10,12 @@ import WalletImport from "~/options/views/login/WalletImport.vue"
 import Unlock from "~/components/Unlock/Unlock.vue"
 
 import Settings from "~/options/views/settings/Settings.vue"
+import SettingsAccountDetail from "~/options/views/settings/AccountDetail.vue"
 import SettingsNetworks from "~/options/views/settings/Networks.vue"
 import SettingsNetworksUpdate from "~/options/views/settings/NetworksUpdate.vue"
 import SettingsNetworksAdd from "~/options/views/settings/NetworksAdd.vue"
+import SettingsTokensAdd from "~/options/views/settings/TokensAdd.vue"
+import SettingsAbout from "~/options/views/settings/About.vue"
 
 import { unlocked, accounts } from "~/logic"
 
@@ -30,7 +33,11 @@ const routes = [
     path: '/settings', component: Settings, children: [
       {
         path: "",
-        redirect: '/settings/networks'
+        redirect: '/settings/accountDetail'
+      },
+      {
+        path: "accountDetail",
+        component: SettingsAccountDetail,
       },
       {
         path: 'networks',
@@ -47,6 +54,15 @@ const routes = [
 
         ]
       },
+      {
+        path: "add-token",
+        component: SettingsTokensAdd,
+      },
+      {
+        path: "about",
+        component: SettingsAbout,
+      }
+
     ],
   },
 ]

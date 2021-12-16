@@ -2,7 +2,8 @@
   <div>
     <span>账号名:{{ currentAccount.name }}</span>
     <br />
-    <span>地址:{{ currentAccount.address }}</span>
+    <span>地址:{{ currentAccount.address }}</span> |
+    <span @click="copyAddress">copy</span>
     <br />
   </div>
   <hr />
@@ -18,11 +19,32 @@
   <hr />
   <div>
     资产列表 |
-    <button>添加代币</button>
+    <router-link to="/settings/add-token">添加代币</router-link>
     <hr />
   </div>
 </template>
 
 <script setup lang="ts">
-import { accounts, currentAccount, networks, currentNetwork } from "~/logic/storage";
+import { tryOnMounted, useClipboard } from '@vueuse/core'
+import { currentAccount } from "~/logic/storage";
+import { getBalance } from "~/scripts/lib/account";
+
+tryOnMounted(() => {
+  setInterval(() => {
+    getBalance(currentAccount.value.address).then(balance => {
+      currentAccount.value.balance = balance
+    })
+  }, 60000)
+})
+
+const copyAddress = () => {
+  const source = ref(currentAccount.value.address)
+  const { text, copy, copied, isSupported } = useClipboard({ source })
+  if (copied.value) {
+    alert('已复制到黏贴版')
+  } else {
+    alert('复制失败')
+  }
+}
+
 </script>

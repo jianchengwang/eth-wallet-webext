@@ -37,6 +37,9 @@ export async function getManifest() {
       'activeTab',
       'http://*/',
       'https://*/',
+
+      'clipboardRead',
+      'clipboardWrite',
     ],
     content_scripts: [{
       matches: ['http://*/*', 'https://*/*'],

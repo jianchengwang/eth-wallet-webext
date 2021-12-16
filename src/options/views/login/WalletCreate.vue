@@ -24,6 +24,7 @@
 import { useRouter } from "vue-router";
 
 import { Account } from "~/scripts/types/Account";
+import { Token } from "~/scripts/types/Token";
 import { createWallet } from "~/scripts/lib/wallet";
 import { aesEncrypt } from "~/scripts/lib/crypto";
 import { accounts, currentAccount, unlocked } from "~/logic/storage";
@@ -61,6 +62,9 @@ const create = () => {
     mnemonicCiphertext: mnemonicCiphertext,
     privateKey: wallet.privateKey,
     privateKeyCiphertext: privateKeyCiphertext,
+    balance: 0,
+    nonce: 0,
+    tokenMap: new Map<Number, Token[]>()
   }
   accounts.value.push(account);
   currentAccount.value = account;

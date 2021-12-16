@@ -1,4 +1,6 @@
 <template>
+  添加网络页面
+  <hr />
   <div>
     网络名称
     <input v-model="formData.name" />
@@ -11,6 +13,7 @@
     <br />Explorer
     <input v-model="formData.explorer" />
     <br />
+    <router-link to="/settings/networks">取消</router-link>|
     <button @click="addNetwork">保存</button>
   </div>
 </template>

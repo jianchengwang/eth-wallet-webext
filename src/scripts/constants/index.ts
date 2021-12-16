@@ -94,6 +94,11 @@ export const DEFAULT_NETWORKS = [
   ShangChain
 ]
 
+export const TokenType = {
+  ERC20: "ERC-20",
+  ERC721: "ERC-721"
+}
+
 //实现721接口
 export const _INTERFACE_ID_ERC721 = "0x80ac58cd";
 //实现可列举接口

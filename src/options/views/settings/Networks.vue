@@ -1,4 +1,6 @@
 <template>
+  网络配置页面
+  <hr />
   <router-view></router-view>
 </template>
 
