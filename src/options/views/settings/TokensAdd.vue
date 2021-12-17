@@ -32,7 +32,6 @@ let tokenTmp: Token = {
 const formData = reactive(tokenTmp)
 const addToken = () => {
   const tokenMap = reactive(currentAccount.value.tokenMap)
-  tokenMap[currentNetwork.value.id].push()
-
+  tokenMap[currentNetwork.value.id].push(formData)
 }
 </script>

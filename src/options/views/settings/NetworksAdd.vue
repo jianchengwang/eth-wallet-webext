@@ -13,12 +13,18 @@
     <br />Explorer
     <input v-model="formData.explorer" />
     <br />
-    <router-link to="/settings/networks">取消</router-link>|
-    <button @click="addNetwork">保存</button>
+    <button @click="goBack">取消</button>|
+    <button>保存</button>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useRouter } from "vue-router";
+const router = useRouter()
+const goBack = () => {
+  router.go(-1)
+}
+
 const formData = reactive({
   name: '',
   chainId: 0,
