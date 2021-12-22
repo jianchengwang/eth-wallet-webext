@@ -20,21 +20,33 @@
   <div>
     资产列表 |
     <router-link to="/settings/add-token">添加代币</router-link>
+    <br />
+    <div v-for="(token, key) in tokenMap" :key="key">
+      {{ token.address }} | {{ token.symbol }} | {{ token.balance }}
+      <br />
+    </div>
     <hr />
   </div>
 </template>
 
 <script setup lang="ts">
 import { tryOnMounted, useClipboard } from '@vueuse/core'
-import { currentAccount } from "~/logic/storage";
+import { currentAccount, currentNetwork } from "~/logic/storage";
 import { getBalance } from "~/scripts/lib/account";
+
+let tokenMap = computed(() => {
+  if (currentAccount.value.tokenMap[currentNetwork.value.id]) {
+    return currentAccount.value.tokenMap[currentNetwork.value.id]
+  }
+  return new Map<String, Token>()
+})
 
 tryOnMounted(() => {
   setInterval(() => {
     getBalance(currentAccount.value.address).then(balance => {
       currentAccount.value.balance = balance
     })
-  }, 60000)
+  }, 10000)
 })
 
 const copyAddress = () => {

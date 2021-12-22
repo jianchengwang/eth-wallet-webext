@@ -32,6 +32,14 @@ let tokenTmp: Token = {
 const formData = reactive(tokenTmp)
 const addToken = () => {
   const tokenMap = reactive(currentAccount.value.tokenMap)
-  tokenMap[currentNetwork.value.id].push(formData)
+  if (!tokenMap[currentNetwork.value.id]) {
+    tokenMap[currentNetwork.value.id] = new Map<String, Token>()
+  }
+  if (tokenMap[currentNetwork.value.id][formData.address]) {
+    alert('代币已存在')
+    return
+  }
+  tokenMap[currentNetwork.value.id][formData.address] = formData
+  Object.assign(accounts.value.find(item => item.address === currentAccount.value.address), currentAccount.value)
 }
 </script>

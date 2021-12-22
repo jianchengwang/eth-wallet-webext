@@ -7,8 +7,8 @@ export async function getBalance(address: string, precision: number = 18): Promi
   console.info(address)
   if (globalState.provider) {
     let balance = await globalState.provider.getBalance(address)
-    console.info(balance);
-    return ethers.utils.formatUnits(balance, precision);
+    let balanceStr = ethers.utils.formatUnits(balance, precision);
+    return balanceStr;
   }
   return ""
 }

@@ -8,7 +8,9 @@ type GlobalState = {
   provider: ethers.providers.Provider;
   password: string;
   isLogin: false;
+  contracts: ethers.Contract[],
   changeNetworkProvider: () => void;
+  addContract: (contract: ethers.Contract) => void;
 }
 
 const globalState: GlobalState = {
@@ -16,6 +18,7 @@ const globalState: GlobalState = {
   provider: new ethers.providers.InfuraProvider("mainnet", "fda03bb99a764dca90b2400ecff9ef5a"),
   password: "",
   isLogin: false,
+  contracts: [],
   changeNetworkProvider: () => {
     if (currentNetwork.value.id != globalState.networkId) {
       globalState.networkId = currentNetwork.value.id
@@ -26,6 +29,9 @@ const globalState: GlobalState = {
       }
     }
   },
+  addContract: (contract: ethers.Contract) => {
+
+  }
 }
 
 export const useGlobalState = createGlobalState(

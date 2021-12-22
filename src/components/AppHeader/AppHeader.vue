@@ -5,13 +5,19 @@
       <select v-model="networkId" @change="networkChange">
         <option v-for="item in networks" :key="item.id" :value="item.id">{{ item.name }}</option>
       </select>
-      <button @click="toSettingNetwork">添加网络</button>
+      <button @click="toSettingsNetwork">添加网络</button>
     </span>|
     <span>
       账号头像
       <select v-model="accountAddress" @change="accountChange">
         <option v-for="item in accounts" :key="item.address" :value="item.address">{{ item.name }}</option>
       </select>
+    </span>|
+    <span>
+      操作
+      <button>创建账户</button>-
+      <button>导入账户</button>-
+      <button @click="toSettings">设置</button>
     </span>
   </div>
 </template>
@@ -31,8 +37,11 @@ const networkChange = (value) => {
   globalState.changeNetworkProvider();
 };
 const router = useRouter()
-const toSettingNetwork = () => {
+const toSettingsNetwork = () => {
   router.push("/settings/networks/add-network")
+}
+const toSettings = () => {
+  router.push("/settings/")
 }
 
 

@@ -84,14 +84,27 @@ const ShangChain: Network = {
   default: true
 }
 
+const Localhost: Network = {
+  id: 8,
+  network: '',
+  name: 'Localhost',
+  chainId: 31337,
+  rpc: 'http://127.0.0.1:8545',
+  test: true,
+  symbol: 'ETH',
+  explorer: '',
+  default: true
+}
+
 export const DEFAULT_NETWORKS = [
-  Ethereum,
+  // Ethereum,
   Ropsten,
-  Rinkeby,
-  Goerli,
-  Kovan,
+  // Rinkeby,
+  // Goerli,
+  // Kovan,
   BscTestnet,
-  ShangChain
+  ShangChain,
+  Localhost
 ]
 
 export const TokenType = {
